@@ -1,0 +1,3 @@
+files/accounts/*.pickle
+*.pickle
+__pycache__
