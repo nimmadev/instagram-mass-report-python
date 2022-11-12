@@ -49,12 +49,12 @@ def run(playwright: Playwright, session) -> None:
     context.close()
     browser.close()
 
-
+#start the script
 with sync_playwright() as playwright:
-    # file_path = Path().cwd() / "accounts"
-    # all_sessions =  [str(x) for x in file_path.iterdir()]
-    # for session_ in all_sessions:
-    #     session = pickle.load(session_)
-    #     run(playwright, session)
-    session = pickle.load(open("cookies.pickle", "rb"))
-    run(playwright, session)
+    file_path = Path().cwd() / "accounts"
+    all_sessions =  [str(x) for x in file_path.iterdir()]
+    for session_ in all_sessions:
+        session = pickle.load(session_)
+        run(playwright, session)
+    # session = pickle.load(open("cookies.pickle", "rb"))
+    # run(playwright, session)
