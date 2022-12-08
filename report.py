@@ -51,7 +51,7 @@ def run(playwright: Playwright, session) -> None:
 
 #start the script
 with sync_playwright() as playwright:
-    file_path = Path().cwd() / "accounts"
+    file_path = Path().cwd() / 'files' / "accounts"
     all_sessions =  [str(x) for x in file_path.iterdir()]
     for session_ in all_sessions:
         session = pickle.load(session_)

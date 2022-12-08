@@ -4,8 +4,8 @@ import pickle
 import uuid
 from pathlib import Path
 
-username = input("Enter username")
-password = input("Enter password")
+username = input("Enter username: ")
+password = input("Enter password: ")
 
 #path for working dir
 cwd = Path().cwd()
@@ -46,7 +46,7 @@ def run(playwright: Playwright) -> None:
         except:
             pass
         # save cookies from context not page
-        save_object(context.cookies("https://www.instagram.com/"), cwd / "accounts" / file_name)
+        save_object(context.cookies("https://www.instagram.com/"), cwd / 'files' / "accounts" / file_name)
     except Exception:
         print("Failed to log in")
     time.sleep(10)
