@@ -40,10 +40,10 @@ def run(playwright: Playwright, session) -> None:
     # using one of two report types
     if report_type == "illeagl" or "scam":
         page.get_by_role("button", name="It's posting content that shouldn't be on Instagram chevron").click()
-        report_function(page)
+        # report_function(page)
     else:
         page.get_by_role("button", name="It's pretending to be someone else chevron").click()
-        report_function(page)
+        # report_function(page)
     # ---------------------
     # closeing and exiting the brower
     context.close()
@@ -53,8 +53,12 @@ def run(playwright: Playwright, session) -> None:
 with sync_playwright() as playwright:
     file_path = Path().cwd() / 'files' / "accounts"
     all_sessions =  [str(x) for x in file_path.iterdir()]
+    # print(all_sessions)
     for session_ in all_sessions:
-        session = pickle.load(session_)
+        session_ = 'files/accounts/' + session_.split('/')[-1]
+        if session_ == 'files/accounts/__init__':
+            continue
+        session = pickle.load(open(session_, "rb"))
         run(playwright, session)
     # session = pickle.load(open("cookies.pickle", "rb"))
     # run(playwright, session)
