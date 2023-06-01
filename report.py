@@ -52,13 +52,14 @@ def run(playwright: Playwright, session) -> None:
 #start the script
 with sync_playwright() as playwright:
     file_path = Path().cwd() / 'files' / "accounts"
-    all_sessions =  [str(x) for x in file_path.iterdir()]
+    all_sessions =  [x.name for x in file_path.iterdir()]
     # print(all_sessions)
     for session_ in all_sessions:
-        session_ = 'files/accounts/' + session_.split('/')[-1]
-        if session_ == 'files/accounts/__init__':
+        session_ = str(Path().cwd() / "files" / "accounts" / session_)
+        if 'init' in session_:
             continue
         session = pickle.load(open(session_, "rb"))
         run(playwright, session)
     # session = pickle.load(open("cookies.pickle", "rb"))
     # run(playwright, session)
+
