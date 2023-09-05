@@ -12,6 +12,7 @@ To deploy this project you must have Python and Git installed
 ```
 ```python
   pip install -r requirements.txt
+  playwright install
 ```
 
 Thats it!
@@ -19,7 +20,7 @@ Thats it!
 ## Usage/Examples
 
 - 1st run python login.py
-- enter your instgram username [example: savej or savej@gmail.com]
+- enter your instagram username [example: savej or savej@gmail.com]
 - enter your instagram password
 You need to repeat the login process until you have added all the accounts that you want to report from
 
@@ -33,6 +34,6 @@ In the help channel, you can request a new report type
 
 
 
-Dev: [@R5pro](http://t.me/R5pro) on Telegram
+Dev: [@P5pro](http://t.me/P5pro) on Telegram
 
 help and support: [@pyrogram-add-member](https://t.me/nimmadev)
