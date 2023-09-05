@@ -1,10 +1,11 @@
+import contextlib
 from playwright.sync_api import Playwright, sync_playwright, expect
 import time
 import pickle
 from pathlib import Path
-from files.helper import illeagl, scam, pretend_me, pretend_someone
+from files.helper import illegal, scam, pretend_me, pretend_someone
 #types of reports and choosing one
-reports = {"illeagl": illeagl, "scam": scam, "pretend_me": pretend_me, "pretend_someone": pretend_someone}
+reports = {"illegal": illegal, "scam": scam, "pretend_me": pretend_me, "pretend_someone": pretend_someone}
 report_username = input("Enter a report username : ")
 for x in reports:
     print(x)
@@ -25,24 +26,22 @@ def run(playwright: Playwright, session) -> None:
     time.sleep(2)
     page.goto("https://www.instagram.com/")
     # just for safety
-    try:
+    with contextlib.suppress(Exception):
         page.get_by_role("button", name="Turn On").click()
-    except Exception:
-        pass
-    page.goto("https://www.instagram.com/%s/" % report_username)
+    page.goto(f"https://www.instagram.com/{report_username}/")
     page.wait_for_url(f"https://www.instagram.com/{report_username}/")
 
     page.get_by_role("button", name="Options").click()
 
     page.get_by_role("button", name="Report").click()
 
-    page.get_by_role("button", name="Report account chevron").click()
+    page.locator("button").filter(has_text="Report accountchevron").click()
     # using one of two report types
-    if report_type == "illeagl" or "scam":
-        page.get_by_role("button", name="It's posting content that shouldn't be on Instagram chevron").click()
+    if report_type not in ["illeagl", "scam"]:
+        page.locator("button").filter(has_text="It's pretending to be someone elsechevron").click()
         # report_function(page)
     else:
-        page.get_by_role("button", name="It's pretending to be someone else chevron").click()
+        page.locator("button").filter(has_text="It's posting content that shouldn't be on Instagramchevron").click()
         # report_function(page)
     # ---------------------
     # closeing and exiting the brower
