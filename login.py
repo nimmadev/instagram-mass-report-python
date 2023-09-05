@@ -1,3 +1,4 @@
+import contextlib
 from playwright.sync_api import Playwright, sync_playwright, expect
 import time
 import pickle
@@ -10,7 +11,7 @@ password = input("Enter password: ")
 #path for working dir
 cwd = Path().cwd()
 name = uuid.uuid4().int.__str__()[:8]
-file_name = name+".pickle"
+file_name = f"{name}.pickle"
 # save cookies
 def save_object(obj, filename):
     with open(filename, 'wb') as f:  # Overwrites any existing file.
@@ -40,11 +41,9 @@ def run(playwright: Playwright) -> None:
     time.sleep(30)
     try:
         # check if user is logged in
-        try:
+        with contextlib.suppress(Exception):
             page.get_by_text(text="Save Info").click()
             page.get_by_text(text="Not Now").click()
-        except:
-            pass
         # save cookies from context not page
         save_object(context.cookies("https://www.instagram.com/"), cwd / 'files' / "accounts" / file_name)
     except Exception:
